@@ -613,7 +613,7 @@ void check_result(gpgme_import_result_t result, char* fpr, int secret)
     }
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT jstring JNICALL
 Java_com_freiheit_gnupg_GnuPGContext_gpgmeOpImport(JNIEnv* env,
         jobject self,
         jlong context,
@@ -624,30 +624,37 @@ Java_com_freiheit_gnupg_GnuPGContext_gpgmeOpImport(JNIEnv* env,
 
     err = gpgme_data_rewind(DATA(keydata));   //TODO: Use seek instead of rewind
     if (UTILS_onErrorThrowException(env, err)) {
-        return;
+        return NULL;
     }
 
     err = gpgme_op_import(CONTEXT(context), DATA(keydata));
     if (UTILS_onErrorThrowException(env, err)) {
-        return;
+        return NULL;
     }
     result = gpgme_op_import_result(CONTEXT(context));
     if (result == NULL) {
         if (UTILS_onErrorThrowException(env, GPG_ERR_NO_PUBKEY))
-            return;
+            return NULL;
     } else if (result->imported != 1 || result->not_imported != 0) {
         if (result->imports == NULL) {
             if (UTILS_onErrorThrowException(env, GPG_ERR_UNUSABLE_PUBKEY)) {
-                return;
+                return NULL;
             }
         } else {
             if (UTILS_onErrorThrowException(env, result->imports->result)) {
-                return;
+                return NULL;
             }
         }
     }
     //TODO: Check result and throw exceptions
     //check_result (result, "ADAB7FCC1F4DE2616ECFA402AF82244F9CD9FD55", 0);
+
+    if (result->imports != NULL && result->imports->fpr != NULL) {
+        return (*env)->NewStringUTF(env, result->imports->fpr);
+    }
+    else {
+        return NULL;
+    }
 }
 
 JNIEXPORT jboolean JNICALL

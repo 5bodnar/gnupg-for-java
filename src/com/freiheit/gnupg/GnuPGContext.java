@@ -696,20 +696,20 @@ public class GnuPGContext extends GnuPGPeer {
     /**
      * Imports a Key (private or public). You can supply the key in ASCII armor.
      */
-    public void importKey(GnuPGData keydata) throws GnuPGException {
-        gpgmeOpImport(getInternalRepresentation(), keydata.getInternalRepresentation());
+    public String importKey(GnuPGData keydata) throws GnuPGException {
+        return gpgmeOpImport(getInternalRepresentation(), keydata.getInternalRepresentation());
     }
 
     /**
      * Imports a Key (private or public). You can supply the key in ASCII armor.
      */
-    public void importKey(File file) throws GnuPGException, IOException {
+    public String importKey(File file) throws GnuPGException, IOException {
         GnuPGData keydata = createDataObject(file);
         if (keydata == null) {
             System.out.println("importkey: parsing key data failed");
-            return;
+            return null;
         }
-        gpgmeOpImport(getInternalRepresentation(), keydata.getInternalRepresentation());
+        return gpgmeOpImport(getInternalRepresentation(), keydata.getInternalRepresentation());
     }
 
     /**
@@ -829,7 +829,7 @@ public class GnuPGContext extends GnuPGPeer {
 
     private native long gpgmeGetSignersLength(long context);
 
-    private native void gpgmeOpImport(long context, long l);
+    private native String gpgmeOpImport(long context, long l);
 
     private native void gpgmeOpExport(long context, String pattern, long reserved, long l);
 
