@@ -54,7 +54,7 @@ Java_com_freiheit_gnupg_GnuPGContext_gpgmeNew(JNIEnv* env, jobject self)
     gpgme_new(&ctx);
     gpgme_set_armor(ctx, 1);
     gpgme_set_textmode(ctx, 1);
-    gpgme_set_keylist_mode(ctx, GPGME_KEYLIST_MODE_LOCAL);
+    gpgme_set_keylist_mode(ctx, GPGME_KEYLIST_MODE_LOCAL | GPGME_KEYLIST_MODE_SIGS);
 
     return LNG(ctx);
 }
