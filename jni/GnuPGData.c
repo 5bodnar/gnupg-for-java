@@ -139,8 +139,6 @@ Java_com_freiheit_gnupg_GnuPGData_gpgmeDataRelease(JNIEnv* env, jobject self,
         jlong data)
 {
     gpgme_data_t dh = DATA(data);
-    if (dh->data.stream != NULL)
-        fclose(dh->data.stream);
     gpgme_data_release(dh);
 }
 
