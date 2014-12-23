@@ -32,7 +32,12 @@
 
 #include "gpgme.h"
 
-
+#if GPGME_VERSION_NUMBER < 0x010403
+typedef off_t   gpgme_off_t;
+typedef ssize_t gpgme_ssize_t;
+#endif
+
+
 /* Read up to SIZE bytes into buffer BUFFER from the data object with
    the handle DH.  Return the number of characters read, 0 on EOF and
    -1 on error.  If an error occurs, errno is set.  */
