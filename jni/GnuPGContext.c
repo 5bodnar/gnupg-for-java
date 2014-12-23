@@ -207,7 +207,12 @@ Java_com_freiheit_gnupg_GnuPGContext_gpgmeOpChangePassphrase(JNIEnv* env,
 {
     gpgme_error_t err;
 
+#if GPGME_VERSION_NUMBER >= 0x010403
     err = gpgme_op_passwd(CONTEXT(context), KEY(keydata), 0);
+#else
+#pragma message "This version does not support gpgme_op_passwd"
+    err = gpgme_error(GPG_ERR_NOT_SUPPORTED);
+#endif
     if (UTILS_onErrorThrowException(env, err)) {
         return;
     }
@@ -483,7 +488,12 @@ Java_com_freiheit_gnupg_GnuPGContext_gpgmeGetSignersLength(JNIEnv* env,
         jobject self,
         jlong context)
 {
+#if GPGME_VERSION_NUMBER >= 0x010403
     return (gpgme_signers_count(CONTEXT(context)));
+#else
+#pragma message "This version does not support gpgme_signers_count"
+    return -1;
+#endif
 }
 
 void check_result(gpgme_import_result_t result, char* fpr, int secret)
