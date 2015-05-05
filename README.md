@@ -69,6 +69,6 @@ If you want the optional javadoc in build/docs/, run:
 ## Hacking Notes
 
 Please conform to our code format standard. For C files use
-./format-code.sh. For Java files, use Eclipse with the Android mode from the
+`./format-code.sh`. For Java files, use Eclipse with the Android mode from the
 Android project.  The default Eclipse formatting is usually close enough.
 
