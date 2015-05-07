@@ -40,9 +40,9 @@ public class GnuPGTestSuite extends TestCase {
     // Currently, you can not run these test without these fingerprints.
     // And: You need to know the passphrases...forget it.
     // but you could add your own fingerprints...
-    private static String CD_FPR = "1C12878CFAA2ECDC81DC43DB12262834A6123FF6";
+    private static String CD_FPR = "648AC23F9705E65BA20D1FC72CD01A9AB1AC28B6";
     // private static String SR_FPR = "F05F385DFA40962D0075AB9C2B80170D";
-    private static String SR_FPR = "BE54B261FDDF09025D249CAF948C94764B9A38DB";
+    private static String SR_FPR = "EE0778AF4B06A03505E8032613EEFAE72AA1EA60";
 
     // private static GnuPGKey person1 = null;
     // private static GnuPGKey person2 = null;
