@@ -28,9 +28,9 @@ ifeq (MINGW,$(findstring MINGW,$(UNAME)))
 else
   ifeq ($(UNAME),Darwin)
     CC := gcc
-    ALL_CPPFLAGS += -I/usr/local/MacGPG2/include
-    ALL_LDFLAGS := -dylib
-    ALL_LIBS := -L/usr/local/MacGPG2/lib -framework MacGPGME
+    ALL_CPPFLAGS += -I/usr/local/MacGPG2/include -I"$(JAVA_HOME)/include/darwin"
+    ALL_LDFLAGS := -dynamiclib
+    ALL_LIBS := $(shell gpgme-config --thread=pthread --libs)
     JAVA_HOME := $(shell /usr/libexec/java_home \
 	|| echo /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home)
     GNUPG_LIB := $(BUILD_DIR)/libgnupg-for-java.dylib
