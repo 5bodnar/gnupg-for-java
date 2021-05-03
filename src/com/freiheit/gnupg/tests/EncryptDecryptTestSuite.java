@@ -30,9 +30,9 @@ public class EncryptDecryptTestSuite extends TestCase {
         
         GnuPGKey[] recipient = ctx.generateEmptyKeyArray(1);
         
-        String SBODNAR_PUBLIC_KEY = System.getenv("COLLIE_PUBLIC_KEY_FINGERPRINT");
+        String publicKey = System.getenv("COLLIE_PUBLIC_KEY_FINGERPRINT");
         
-        recipient[0] = ctx.getKeyByFingerprint(SBODNAR_PUBLIC_KEY);
+        recipient[0] = ctx.getKeyByFingerprint(publicKey);
 
         GnuPGData cipher = ctx.createDataObject();
         ctx.encrypt(recipient, plain, cipher);
