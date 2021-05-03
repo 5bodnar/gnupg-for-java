@@ -119,7 +119,7 @@ public class GnuPGData extends GnuPGPeer {
     @Override
     public String toString() {
         String result = null;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(this.size());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             this.write(baos);
             result = baos.toString();
